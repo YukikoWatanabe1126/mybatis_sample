@@ -5,20 +5,42 @@
     <title>MyBatisサンプル</title>
 </head>
 <body>
+	<h1>検索フォーム</h1>
+    <form th:action="@{/course/list}" th:method="get">
+        <div>
+            <label>コースID</label>
+            <input type="number" name="courseId">
+        </div>
+        <div>
+            <label>コース名</label>
+            <input type="text" name="courseName">
+        </div>
+        <input type="submit" value="検索">
+    </form>
     <h1>コース一覧</h1>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>名前</th>
+                <!-- ☆削除ボタン用の列追加☆ -->
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="course : ${courses}">
                 <td th:text="${course.id}"></td>
                 <td th:text="${course.name}"></td>
+                <!-- ☆ここから追加箇所☆ -->
+                <td>
+                    <form th:action="@{'/course/delete/' + ${course.id}}" method="post">
+                        <input type="submit" value="削除">
+                    </form>
+                </td>
+                <!-- ☆ここまで追加箇所☆ -->
             </tr>
         </tbody>
     </table>
+    <!-- 省略 -->
 </body>
 </html>
